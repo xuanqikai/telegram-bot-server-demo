@@ -1,8 +1,5 @@
-FROM node:18
-
-# 使用淘宝 NPM 镜像（国内机器构建推荐启用）
-# RUN npm config set registry https://registry.npm.taobao.org/
-RUN npm config set registry https://registry.npmmirror.com
+# 从ecr仓库中拉取node：18镜像
+FROM 559050230964.dkr.ecr.ap-southeast-2.amazonaws.com/node-18:latest
 
 RUN npm i -g typescript && npm i -g pm2 && pm2 install pm2-logrotate
 # npm install
