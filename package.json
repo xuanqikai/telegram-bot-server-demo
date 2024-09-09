@@ -2,9 +2,9 @@
   "name": "typescript-bot",
   "version": "1.0.0",
   "description": "A telegram bot using TypeScript on Glitch",
-  "main": "dist/index.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node dist/index.js",
+    "dev": "node dist/index.js",
     "build": "tsc"
   },
   "dependencies": {
