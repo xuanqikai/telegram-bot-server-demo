@@ -13,7 +13,6 @@ phases:
       - echo Build started on `date`
       - echo Building the Docker image...
       - docker build -t $REPOSITORY_URI:$IMAGE_TAG .
-      - echo "Listing the contents of /src directory:" && ls -l /src
       - echo "Listing the contents of /app directory after build:" && ls -l /app
       - docker tag $REPOSITORY_URI:$IMAGE_TAG $REPOSITORY_URI:latest
 
