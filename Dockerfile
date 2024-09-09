@@ -21,4 +21,4 @@ RUN npm run build \
 EXPOSE 3000
 
 WORKDIR /app
-CMD pm2 set pm2-logrotate:retain 100000 && pm2-docker start ecosystem.config.js
+CMD ls -l /app && pm2 set pm2-logrotate:retain 100000 && pm2-docker start ecosystem.config.js
