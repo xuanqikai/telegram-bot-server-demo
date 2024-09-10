@@ -20,7 +20,7 @@ const weburl = "https://d2h6lhn2iwtzyf.cloudfront.net/fruit/index.html";
 // const weburl = "https://telegram-test-livid.vercel.app/";
 const bot = new node_telegram_bot_api_1.default(token, { polling: true });
 bot.onText(/\/start/, (msg) => {
-    bot.sendMessage(msg.chat.id, "Hello from TypeScript123-222!");
+    bot.sendMessage(msg.chat.id, "Welcome to the game!");
     bot.sendGame(msg.chat.id, gameShortName);
 });
 bot.on('callback_query', (msg) => __awaiter(void 0, void 0, void 0, function* () {

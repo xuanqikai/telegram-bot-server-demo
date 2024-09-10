@@ -8,7 +8,7 @@ const weburl = "https://d2h6lhn2iwtzyf.cloudfront.net/fruit/index.html";
 const bot = new TelegramBot(token!, { polling: true });
 
 bot.onText(/\/start/, (msg: any) => {
-  bot.sendMessage(msg.chat.id, "Hello from TypeScript123-222!");
+  bot.sendMessage(msg.chat.id, "Welcome to the game!");
   bot.sendGame(msg.chat.id, gameShortName);
 });
 bot.on('callback_query', async (msg) => {
