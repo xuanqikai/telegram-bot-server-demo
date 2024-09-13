@@ -17,44 +17,35 @@ const bot = new TelegramBot(token!, { polling: true });
 // })
 
 
-// 监听 /start 命令
 bot.onText(/\/start/, (msg) => {
   const chatId = msg.chat.id;
 
-  // 定义一个带有游戏选项的内联键盘
-  const gameOptions = {
+  // 定义一个带有游戏选项的回复键盘
+  const replyKeyboard = {
     reply_markup: {
-      inline_keyboard: [
-        [
-          { text: '内联-游戏 1', callback_data: 'game1' },
-          { text: '内联-游戏 2', callback_data: 'game2' }
-        ],
-        [
-          { text: '内联-游戏 3', callback_data: 'game3' }
-        ]
-      ]
+      keyboard: [
+        [{ text: '游戏 1' }, { text: '游戏 2' }], // 第一行按钮
+        [{ text: '游戏 3' }] // 第二行按钮
+      ],
+      resize_keyboard: true, // 自动调整键盘大小
+      one_time_keyboard: true // 使用一次后隐藏
     }
   };
 
-  // 发送带有内联按钮的消息
-  bot.sendMessage(chatId, '请选择一个游戏:', gameOptions);
+  bot.sendMessage(chatId, '请选择一个游戏:', replyKeyboard);
 });
 
-// 处理按钮点击事件
-bot.on('callback_query', (callbackQuery) => {
-  const msg = callbackQuery.message;
-  const data = callbackQuery.data;
+// 处理用户选择的游戏
+bot.on('message', (msg) => {
+  const chatId = msg.chat.id;
 
-  if (data === 'game1') {
-    bot.sendMessage(callbackQuery.id, '内联-你选择了游戏 1! 点击链接开始: https://your-game-url-1.com');
-  } else if (data === 'game2') {
-    bot.sendMessage(callbackQuery.id, '内联-你选择了游戏 2! 点击链接开始: https://your-game-url-2.com');
-  } else if (data === 'game3') {
-    bot.sendMessage(callbackQuery.id, '内联-你选择了游戏 3! 点击链接开始: https://your-game-url-3.com');
+  if (msg.text === '游戏 1') {
+    bot.sendMessage(chatId, '你选择了游戏 1! 点击链接开始: https://your-game-url-1.com');
+  } else if (msg.text === '游戏 2') {
+    bot.sendMessage(chatId, '你选择了游戏 2! 点击链接开始: https://your-game-url-2.com');
+  } else if (msg.text === '游戏 3') {
+    bot.sendMessage(chatId, '你选择了游戏 3! 点击链接开始: https://your-game-url-3.com');
   }
-
-  // 通知 Telegram 操作已成功处理
-  bot.answerCallbackQuery(callbackQuery.id);
 });
 
 console.log('Bot is running...');
