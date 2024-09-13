@@ -27,7 +27,9 @@ class BotManager {
         this._myBot.on('message', this.onMessage.bind(this));
         // 处理回调
         this._myBot.on('callback_query', this.onCallbackQuery.bind(this));
+        console.log('_allBotListeners', BotManager._allBotListeners.length);
         BotManager._allBotListeners.forEach(bot => {
+            console.log('_allBotListeners init');
             bot.init();
         });
         console.log('Bot is running...');
