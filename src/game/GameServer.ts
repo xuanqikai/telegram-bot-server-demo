@@ -11,6 +11,7 @@ export class GameServer extends BotListennerBase {
     }
     /** 输入启动命令 */
     onStart(msg: TelegramBot.Message) {
+        console.log("onStart", msg);
         const chatId = msg.chat.id;
         // this._myBot.sendMessage(msg.chat.id, "Hello from TypeScript123-abc!");
         // this._myBot.sendGame(msg.chat.id, gameShortName);
@@ -32,6 +33,7 @@ export class GameServer extends BotListennerBase {
     }
     /** 获取消息 */
     onMessage(msg: TelegramBot.Message) {
+        console.log("onMessage", msg);
         const chatId = msg.chat.id;
 
         const gameInfo = GameConfig.gameInfo.find(v => v.name === msg.text);
@@ -50,7 +52,7 @@ export class GameServer extends BotListennerBase {
     }
     /** 回调 */
     onCallbackQuery(msg: TelegramBot.CallbackQuery) {
-        console.log("收到消息callback_query", msg.game_short_name);
+        console.log("onCallbackQuery", msg.game_short_name);
         const gameInfo = GameConfig.gameInfo.find(v => v.shortName === msg.game_short_name);
         if (gameInfo) {
             this._myBot.answerCallbackQuery(msg.id, { url: GameConfig.h5GameBaseUrl + gameInfo.h5Url })
