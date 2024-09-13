@@ -5,7 +5,7 @@ const BotListennerBase_1 = require("../base/BotListennerBase");
 const Config_1 = require("../Config");
 /** 游戏服务 */
 class GameServer extends BotListennerBase_1.BotListennerBase {
-    init() {
+    onInit() {
         console.log("GameServer init");
     }
     /** 输入启动命令 */

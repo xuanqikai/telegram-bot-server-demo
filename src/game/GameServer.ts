@@ -4,7 +4,7 @@ import { GameConfig } from "../Config";
 
 /** 游戏服务 */
 export class GameServer extends BotListennerBase {
-    init() {
+    onInit() {
         console.log("GameServer init");
     }
     /** 输入启动命令 */

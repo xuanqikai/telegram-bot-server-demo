@@ -3,7 +3,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.BotListennerBase = void 0;
 /** 机器人类 */
 class BotListennerBase {
-    init() { }
+    init(bot) {
+        this.myBot = bot;
+        this.onInit();
+    }
+    /** 初始化 */
+    onInit() {
+    }
     /** 输入启动命令 */
     onStart(msg) {
     }
