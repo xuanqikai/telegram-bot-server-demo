@@ -2,9 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GameServer = void 0;
 const BotListennerBase_1 = require("../base/BotListennerBase");
-const BotManager_1 = require("../BotManager");
 const Config_1 = require("../Config");
-const allGameName = [].map(v => { return { text: 1 }; });
 /** 游戏服务 */
 class GameServer extends BotListennerBase_1.BotListennerBase {
     init() {
@@ -29,7 +27,7 @@ class GameServer extends BotListennerBase_1.BotListennerBase {
                 one_time_keyboard: false // 使用一次后隐藏
             }
         };
-        this._myBot.sendMessage(chatId, '请选择一个游戏:', replyKeyboard);
+        this.myBot.sendMessage(chatId, '请选择一个游戏:', replyKeyboard);
     }
     /** 获取消息 */
     onMessage(msg) {
@@ -38,7 +36,7 @@ class GameServer extends BotListennerBase_1.BotListennerBase {
         const gameInfo = Config_1.GameConfig.gameInfo.find(v => v.name === msg.text);
         if (gameInfo) {
             // 查找到游戏
-            this._myBot.sendGame(msg.chat.id, gameInfo.shortName);
+            this.myBot.sendGame(msg.chat.id, gameInfo.shortName);
         }
         // if (msg.text === '游戏 1') {
         //     this._myBot.sendMessage(chatId, '你选择了游戏 1! 点击链接开始: https://your-game-url-1.com');
@@ -53,9 +51,8 @@ class GameServer extends BotListennerBase_1.BotListennerBase {
         console.log("onCallbackQuery", msg.game_short_name);
         const gameInfo = Config_1.GameConfig.gameInfo.find(v => v.shortName === msg.game_short_name);
         if (gameInfo) {
-            this._myBot.answerCallbackQuery(msg.id, { url: Config_1.GameConfig.h5GameBaseUrl + gameInfo.h5Url });
+            this.myBot.answerCallbackQuery(msg.id, { url: Config_1.GameConfig.h5GameBaseUrl + gameInfo.h5Url });
         }
     }
 }
 exports.GameServer = GameServer;
-BotManager_1.BotManager.addBot(new GameServer());

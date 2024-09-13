@@ -1,5 +1,5 @@
 import TelegramBot from "node-telegram-bot-api";
-import { BotListennerBase } from "./base/BotListennerBase";
+import { allBotListeners } from "./BotListeners";
 import { BotConfig } from "./Config";
 
 /** 机器人类 */
@@ -13,11 +13,6 @@ export class BotManager {
         }
         return this._instance;
     }
-    static _allBotListeners: BotListennerBase[] = [];
-    /** 添加机器人监听者 */
-    static addBot(bot: BotListennerBase) {
-        this._allBotListeners.push(bot);
-    }
 
     init() {
         console.log('BotManager init');
@@ -28,10 +23,8 @@ export class BotManager {
         this._myBot.on('message', this.onMessage.bind(this));
         // 处理回调
         this._myBot.on('callback_query', this.onCallbackQuery.bind(this));
-
-        console.log('_allBotListeners', BotManager._allBotListeners.length);
-        BotManager._allBotListeners.forEach(bot => {
-            console.log('_allBotListeners init');
+        allBotListeners.forEach(bot => {
+            bot.myBot = this._myBot;
             bot.init();
         });
         console.log('Bot is running...');
@@ -39,7 +32,7 @@ export class BotManager {
 
     /** 输入启动命令 */
     onStart(msg: TelegramBot.Message) {
-        BotManager._allBotListeners.forEach(bot => {
+        allBotListeners.forEach(bot => {
             bot.onStart(msg);
         });
         // this._myBot.sendMessage(msg.chat.id, "Hello from TypeScript123-abc!");
@@ -47,13 +40,13 @@ export class BotManager {
     }
     /** 获取消息 */
     onMessage(msg: TelegramBot.Message) {
-        BotManager._allBotListeners.forEach(bot => {
+        allBotListeners.forEach(bot => {
             bot.onMessage(msg);
         });
     }
     /** 回调 */
     onCallbackQuery(msg: TelegramBot.CallbackQuery) {
-        BotManager._allBotListeners.forEach(bot => {
+        allBotListeners.forEach(bot => {
             bot.onCallbackQuery(msg);
         });
     }

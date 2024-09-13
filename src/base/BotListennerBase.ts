@@ -3,7 +3,8 @@ import TelegramBot from "node-telegram-bot-api";
 /** 机器人类 */
 export class BotListennerBase {
 
-    protected _myBot!: TelegramBot;
+    myBot!: TelegramBot;
+
 
     init() { }
 

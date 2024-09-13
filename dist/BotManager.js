@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BotManager = void 0;
 const node_telegram_bot_api_1 = __importDefault(require("node-telegram-bot-api"));
+const BotListeners_1 = require("./BotListeners");
 const Config_1 = require("./Config");
 /** 机器人类 */
 class BotManager {
@@ -13,10 +14,6 @@ class BotManager {
             this._instance = new BotManager();
         }
         return this._instance;
-    }
-    /** 添加机器人监听者 */
-    static addBot(bot) {
-        this._allBotListeners.push(bot);
     }
     init() {
         console.log('BotManager init');
@@ -27,16 +24,15 @@ class BotManager {
         this._myBot.on('message', this.onMessage.bind(this));
         // 处理回调
         this._myBot.on('callback_query', this.onCallbackQuery.bind(this));
-        console.log('_allBotListeners', BotManager._allBotListeners.length);
-        BotManager._allBotListeners.forEach(bot => {
-            console.log('_allBotListeners init');
+        BotListeners_1.allBotListeners.forEach(bot => {
+            bot.myBot = this._myBot;
             bot.init();
         });
         console.log('Bot is running...');
     }
     /** 输入启动命令 */
     onStart(msg) {
-        BotManager._allBotListeners.forEach(bot => {
+        BotListeners_1.allBotListeners.forEach(bot => {
             bot.onStart(msg);
         });
         // this._myBot.sendMessage(msg.chat.id, "Hello from TypeScript123-abc!");
@@ -44,16 +40,15 @@ class BotManager {
     }
     /** 获取消息 */
     onMessage(msg) {
-        BotManager._allBotListeners.forEach(bot => {
+        BotListeners_1.allBotListeners.forEach(bot => {
             bot.onMessage(msg);
         });
     }
     /** 回调 */
     onCallbackQuery(msg) {
-        BotManager._allBotListeners.forEach(bot => {
+        BotListeners_1.allBotListeners.forEach(bot => {
             bot.onCallbackQuery(msg);
         });
     }
 }
 exports.BotManager = BotManager;
-BotManager._allBotListeners = [];

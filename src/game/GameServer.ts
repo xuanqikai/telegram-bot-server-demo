@@ -1,9 +1,7 @@
 import TelegramBot from "node-telegram-bot-api";
 import { BotListennerBase } from "../base/BotListennerBase";
-import { BotManager } from "../BotManager";
 import { GameConfig } from "../Config";
 
-const allGameName = [].map(v => { return { text: 1 } });
 /** 游戏服务 */
 export class GameServer extends BotListennerBase {
     init() {
@@ -29,7 +27,7 @@ export class GameServer extends BotListennerBase {
             }
         };
 
-        this._myBot.sendMessage(chatId, '请选择一个游戏:', replyKeyboard);
+        this.myBot.sendMessage(chatId, '请选择一个游戏:', replyKeyboard);
     }
     /** 获取消息 */
     onMessage(msg: TelegramBot.Message) {
@@ -39,7 +37,7 @@ export class GameServer extends BotListennerBase {
         const gameInfo = GameConfig.gameInfo.find(v => v.name === msg.text);
         if (gameInfo) {
             // 查找到游戏
-            this._myBot.sendGame(msg.chat.id, gameInfo.shortName);
+            this.myBot.sendGame(msg.chat.id, gameInfo.shortName);
         }
 
         // if (msg.text === '游戏 1') {
@@ -55,9 +53,8 @@ export class GameServer extends BotListennerBase {
         console.log("onCallbackQuery", msg.game_short_name);
         const gameInfo = GameConfig.gameInfo.find(v => v.shortName === msg.game_short_name);
         if (gameInfo) {
-            this._myBot.answerCallbackQuery(msg.id, { url: GameConfig.h5GameBaseUrl + gameInfo.h5Url })
+            this.myBot.answerCallbackQuery(msg.id, { url: GameConfig.h5GameBaseUrl + gameInfo.h5Url })
         }
 
     }
 }
-BotManager.addBot(new GameServer());
