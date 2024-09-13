@@ -9,8 +9,6 @@ export const BotConfig = {
     /** 机器人token */
     botToken: "6573484100:AAHw9n7ESNGaY5gjqwNiMsXxqZk8tpI7Vcw",
     isPolling: true,
-    /** 游戏名 */
-    gameShortName: "testgame",
 
 }
 

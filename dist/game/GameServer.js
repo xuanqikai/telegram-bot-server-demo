@@ -8,6 +8,7 @@ const allGameName = [].map(v => { return { text: 1 }; });
 /** 游戏服务 */
 class GameServer extends BotListennerBase_1.BotListennerBase {
     init() {
+        console.log("GameServer init");
     }
     /** 输入启动命令 */
     onStart(msg) {

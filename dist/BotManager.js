@@ -19,6 +19,7 @@ class BotManager {
         this._allBotListeners.push(bot);
     }
     init() {
+        console.log('BotManager init');
         this._myBot = new node_telegram_bot_api_1.default(Config_1.BotConfig.botToken, { polling: Config_1.BotConfig.isPolling });
         // 处理启动命令
         this._myBot.onText(/\/start/, this.onStart.bind(this));

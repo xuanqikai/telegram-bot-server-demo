@@ -7,7 +7,7 @@ const allGameName = [].map(v => { return { text: 1 } });
 /** 游戏服务 */
 export class GameServer extends BotListennerBase {
     init() {
-
+        console.log("GameServer init");
     }
     /** 输入启动命令 */
     onStart(msg: TelegramBot.Message) {

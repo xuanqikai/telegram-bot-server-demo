@@ -20,6 +20,7 @@ export class BotManager {
     }
 
     init() {
+        console.log('BotManager init');
         this._myBot = new TelegramBot(BotConfig.botToken, { polling: BotConfig.isPolling });
         // 处理启动命令
         this._myBot.onText(/\/start/, this.onStart.bind(this));
